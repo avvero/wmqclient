@@ -20,7 +20,8 @@ angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRout
             views: {
                 "single": {
                     templateUrl: 'views/components.html',
-                    controller: placesController
+                    controller: placesController,
+                    resolve: placesController.resolve
                 }
             }
         })

@@ -1,16 +1,41 @@
 <!DOCTYPE html>
+
 <body>
-<div class="babies_container">
-    <div class="page-header">
-        <h1>wmq
-            <small>client</small>
-        </h1> {{connection}} <button ng-click="editConnection()">edit</button>
+    <div class="babies_container">
+        <div class="page-header">
+            <h1>wmq
+                <small>client</small>
+            </h1>
+            <div class="places" ng-if="!!connection.connected">
+                <button ng-click="editConnection(connection)">edit</button>
+                <button ng-click="disconnect(connection)">disconnect</button>
+                <button ng-click="send()">send</button>
+            </div>
+        </div>
+        <div class="places" ng-if="!connection.connected">
+            <p class="lead" ng-repeat="connection in config.connections">
+                {{connection.url}}<button ng-click="connect(connection)">connect</button>
+            </p>
+        </div>
+        <div ng-if="!!connection.connected">
+            <!-- <div class="places" ng-if="connection.subscriptions.length == 0"> -->
+            <div class="places">
+                <p class="lead" ng-repeat="destination in connection.destinations">
+                    {{destination}} <button ng-click="subscribe(connection, destination)">subscribe</button>
+                </p>
+                <input ng-model="newDestination" ng-keypress="$event.keyCode == 13 ? subscribeNew(connection, newDestination) : null" placeholder="Will Submit on Enter"
+                />
+            </div>
+            <div class="places">
+                <p class="lead" ng-repeat="subscription in connection.subscriptions">
+                    {{subscription.destination}} <button ng-click="unsubscribe(connection, subscription.destination)">unsubscribe</button>
+                </p>
+            </div>
+            <div class="places">
+                <p class="lead" ng-repeat="message in messages">
+                    {{message}}
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="places">
-        <button ng-click="send()">send</button>
-        <p class="lead" ng-repeat="message in messages">
-            {{message}}
-        </p>
-    </div>
-</div>
 </body>

@@ -1,23 +1,52 @@
-function placesController($scope, $timeout, $http, localStorageService, $uibModal) {
-    var storedUrl = localStorageService.get("url")
-    $scope.connection = {
-        url: storedUrl
-    }
+function placesController($scope, $timeout, $http, localStorageService, $uibModal, config) {
+    $scope.config = config
+    $scope.connection = {}
+    $scope.newDestination = ""
+
     var _messages = []
     var client = {}
-    if (!!storedUrl) {
-        // Stomp
-        client = Stomp.client($scope.connection.url, "v11.stomp");
-        client.connect("", "", function () {
-            client.subscribe("jms.topic.test",
-                function (message) {
-                    console.info(message)
-                    _messages.push(message)
-                }, {
-                    priority: 9
-                }
-            );
-        });
+    $scope.connect = function (connection) {
+        if (client.connected) client.disconnect()
+        try {
+            client = Stomp.client("ws://" + connection.url + "/stomp", "v11.stomp");
+            client.connect("", "", function () { });
+        } catch (err) {
+            alert(err)
+            return
+        }
+        $scope.connection = connection
+        connection.subscriptions = []
+    }
+    $scope.disconnect = function (connection) {
+        connection.subscriptions = []
+        client.disconnect()
+    }
+    $scope.subscribe = function (connection, destination) {
+        for (var i = 0; i < connection.subscriptions.length; i++) {
+            if (connection.subscriptions[i].destination == destination) {
+                return
+            }
+        }
+        subscription = client.subscribe(destination, function (message) {
+            console.info(message)
+            _messages.push(message)
+        }, {});
+        subscription.destination = destination
+        connection.subscriptions.push(subscription)
+    }
+    $scope.subscribeNew = function (connection, destination) {
+        $scope.subscribe(connection, destination)
+        $scope.newDestination = ""
+    }
+    $scope.unsubscribe = function (connection, destination) {
+        var subscription = null
+        for (var i = 0; i < connection.subscriptions.length; i++) {
+            if (connection.subscriptions[i].destination == destination) {
+                connection.subscriptions[i].unsubscribe()
+                connection.subscriptions.splice(i, 1);
+                return
+            }
+        }
     }
     $scope.messages = []
     // wrappers
@@ -29,7 +58,6 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             }
 
             $scope.connection.connected = client.connected
-            $scope.connection.subscriptions = client.subscriptions
             $scope.listen(100)
         }, delay, true);
     }
@@ -72,5 +100,25 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             client = Stomp.client($scope.connection.url, "v11.stomp");
             client.connect("", "", function () { });
         }, function () { });
+    }
+}
+
+placesController.resolve = {
+    config: function ($q, $http, $stateParams) {
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: 'config.json',
+            headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+        })
+            .success(function (data) {
+                deferred.resolve(data)
+            })
+            .error(function (data) {
+                deferred.reject("error value");
+            });
+
+        return deferred.promise;
     }
 }
