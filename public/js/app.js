@@ -2,13 +2,15 @@ angular.module("flow", [
     'ngRoute',
     'ui.router',
     'ngSanitize',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'LocalStorageModule'
 ])
 angular.module("flow").constant('constants', {
-    version: "1.0.2"
+    version: "1.0.0"
 })
 // configure our routes
-angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRouterProvider) {
+angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRouterProvider,
+    localStorageServiceProvider, constants) {
 
     $urlRouterProvider.otherwise("/")
 
@@ -22,16 +24,9 @@ angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRout
                 }
             }
         })
-        .state('component', {
-            url: "/listen/:component",
-            views: {
-                "single": {
-                    templateUrl: 'views/component.html',
-                    controller: placeController,
-                    resolve: placesController.resolve
-                }
-            }
-        })
+    localStorageServiceProvider
+        .setPrefix('com.avvero.wmqclient.' + constants.version)
+        .setStorageType('localStorage')
 })
 angular.module("flow").run(function ($rootScope) {
 
