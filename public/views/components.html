@@ -41,6 +41,11 @@
                         </span>
                     </div>
                 </div>
+                <ul class="nav navbar-nav">
+                        <li ng-if="_messages.length > 0">
+                            <a href="" class="text-red">There are frozen messages</a>
+                        </li>
+                    </ul>
                 <ul class="nav navbar-nav navbar-custom-menu">
                     <li class="dropdown messages-menu">
                         <a href="" class="dropdown-toggle" ng-click="disconnect(connection)">
