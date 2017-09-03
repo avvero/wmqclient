@@ -1,4 +1,4 @@
-function placesController($scope, $timeout, $http, localStorageService, $uibModal, config) {
+function placesController($scope, $timeout, $http, localStorageService, $uibModal, Notification, config) {
     $scope.config = config
     $scope.connection = {}
     $scope.newDestination = ""
@@ -6,12 +6,16 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
     var _messages = []
     var client = {}
     $scope.connect = function (connection) {
+        Notification.info("Opening Web Socket...")
         if (client.connected) client.disconnect()
+        //optimistic
+        // connection.connected = true
         try {
             client = Stomp.client("ws://" + connection.url + "/stomp", "v11.stomp");
             client.connect("", "", function () { });
         } catch (err) {
-            alert(err)
+            Notification.error(err)
+            // connection.connected = false
             return
         }
         $scope.connection = connection
@@ -27,7 +31,9 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
                 return
             }
         }
+        Notification.info("Subscribe to " + destination)
         subscription = client.subscribe(destination, function (message) {
+            message.body = JSON.parse(message.body)
             console.info(message)
             _messages.push(message)
         }, {});
@@ -42,6 +48,7 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         var subscription = null
         for (var i = 0; i < connection.subscriptions.length; i++) {
             if (connection.subscriptions[i].destination == destination) {
+                Notification.info("Undubscribe from " + destination)
                 connection.subscriptions[i].unsubscribe()
                 connection.subscriptions.splice(i, 1);
                 return

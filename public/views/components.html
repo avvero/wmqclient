@@ -1,41 +1,123 @@
 <!DOCTYPE html>
 
 <body>
-    <div class="babies_container">
+    <div class="container" ng-if="!connection.connected">
         <div class="page-header">
             <h1>wmq
                 <small>client</small>
             </h1>
-            <div class="places" ng-if="!!connection.connected">
+            <div ng-if="!!connection.connected">
                 <button ng-click="editConnection(connection)">edit</button>
                 <button ng-click="disconnect(connection)">disconnect</button>
-                <button ng-click="send()">send</button>
+                <button>send</button>
             </div>
         </div>
-        <div class="places" ng-if="!connection.connected">
-            <p class="lead" ng-repeat="connection in config.connections">
-                {{connection.url}}<button ng-click="connect(connection)">connect</button>
-            </p>
+        <div ng-if="!connection.connected">
+            <p class="lead">Select broker to connect</p>
+            <div class="list-group">
+                <input type="text" class="form-control list-group-item" placeholder="Set url to broker" aria-describedby="basic-addon1">
+                <button type="button" class="list-group-item" ng-click="connect(connection)" ng-repeat="connection in config.connections">
+                <strong>{{connection.url}}</strong>
+            </button>
+            </div>
         </div>
-        <div ng-if="!!connection.connected">
-            <!-- <div class="places" ng-if="connection.subscriptions.length == 0"> -->
-            <div class="places">
-                <p class="lead" ng-repeat="destination in connection.destinations">
-                    {{destination}} <button ng-click="subscribe(connection, destination)">subscribe</button>
-                </p>
-                <input ng-model="newDestination" ng-keypress="$event.keyCode == 13 ? subscribeNew(connection, newDestination) : null" placeholder="Will Submit on Enter"
-                />
+    </div>
+    <div class="wrapper" ng-if="!!connection.connected">
+        <header class="main-header">
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>W</b>MQ</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>WMQ</b>client</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown messages-menu">
+                        <a href="" class="dropdown-toggle" ng-click="disconnect(connection)">
+                            <i class="fa fa-feed">Disconnect <b>{{connection.url}}</b></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-custom-menu">
+                    <li class="dropdown messages-menu">
+                        <a href="" class="dropdown-toggle" ng-click="send()">
+                            <i class="fa fa-envelope-o text-green"> Send</i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 281px;">
+                <section class="sidebar" style="height: 281px; overflow: hidden; width: auto;">
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li class="header">CONNECTION</li>
+                        <li>
+                            <a href="" ng-click="disconnect(connection)">
+                                <i class="fa fa-feed"></i><span>{{connection.url}}</span>
+                            </a>
+                        </li>
+                        <li class="header">ENDPOINTS</li>
+                    </ul>
+                    <!-- search form -->
+                    <div class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Add...">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /.search form -->
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li ng-repeat="subscription in connection.subscriptions">
+                            <a href="" ng-click="unsubscribe(connection, subscription.destination)">
+                            <i class="fa fa-times"></i><span>{{subscription.destination}}</span>
+                            </a>
+                        </li>
+                        <li class="header">HISTORY</li>
+                        <li ng-repeat="destination in connection.destinations">
+                            <a href="" ng-click="subscribe(connection, destination)">
+                            <i class="fa fa-plus"></i><span>{{destination}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
             </div>
-            <div class="places">
-                <p class="lead" ng-repeat="subscription in connection.subscriptions">
-                    {{subscription.destination}} <button ng-click="unsubscribe(connection, subscription.destination)">unsubscribe</button>
-                </p>
-            </div>
-            <div class="places">
-                <p class="lead" ng-repeat="message in messages">
-                    {{message}}
-                </p>
-            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content">
+                <div class="box" ng-repeat="message in messages | orderBy:'-'">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b>Headers</b>
+                                <pre ng-if="!!message.prettify">{{message.headers | json}}</pre>
+                                <pre ng-if="!message.prettify">{{message.headers}}</pre>
+                            </div>
+                            <div class="col-md-6">
+                                <b>Body</b>
+                                <pre ng-if="!!message.prettify">{{message.body | json}}</pre>
+                                <pre ng-if="!message.prettify">{{message.body}}</pre>
+                            </div>
+                            <button type="button" class="btn btn-xs btn-primary message-prettify" 
+                                    title="Prettify" ng-click="message.prettify = !message.prettify">
+                                <i class="fa fa-magic"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
         </div>
     </div>
 </body>

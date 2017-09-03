@@ -1,0 +1,122 @@
+/* the norm */
+#gritter-notice-wrapper {
+	position:fixed;
+	top:20px;
+	right:20px;
+	width:301px;
+	z-index:9999;
+}
+#gritter-notice-wrapper.top-left {
+    left: 20px;
+    right: auto;
+}
+#gritter-notice-wrapper.bottom-right {
+    top: auto;
+    left: auto;
+    bottom: 20px;
+    right: 20px;
+}
+#gritter-notice-wrapper.bottom-left {
+    top: auto;
+    right: auto;
+    bottom: 20px;
+    left: 20px;
+}
+.gritter-item-wrapper {
+	position: relative;
+	margin: 0 0 10px 0;
+}
+.gritter-top {
+	height:10px;
+}
+.hover .gritter-top {
+	background-position:right -30px;
+}
+.gritter-bottom {
+	height:8px;
+	margin:0;
+}
+.hover .gritter-bottom {
+	background-position: bottom right;
+}
+.gritter-item {
+	border-radius: 3px;
+	display: block;
+	padding: 2px 11px 8px 11px;
+	font-size: 11px;
+	font-family: verdana;
+	color: #fff !important;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+}
+
+.gritter-success .gritter-item {
+	background-color: #00a65a !important;
+	border-color: #008d4c;
+}
+
+.gritter-info .gritter-item {
+	background-color: #FFFFFF !important;
+	border-color: #969696;
+	color: #373737 !important;
+}
+
+.gritter-error .gritter-item {
+	background-color: #dd4b39 !important;
+	border-color: #d73925;
+}
+
+.hover .gritter-item {
+	background-position:right -40px;
+}
+.gritter-item p {
+	padding:0;
+	margin:0;
+}
+.gritter-close {
+	display: block;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	color: #000;
+	float: right;
+	margin-right: -14px;
+}
+
+.gritter-close:before {
+	content: "\f00d";
+	font: normal normal normal 14px/1 FontAwesome;
+}
+
+.gritter-title {
+	color: inherit;
+	font-weight: 600;
+	font-family: 'Source Sans Pro',sans-serif;
+	font-size: 14px;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+.gritter-image {
+	width:48px;
+	height:48px;
+	float:left;
+}
+.gritter-with-image,
+.gritter-without-image {
+	padding:0 0 5px 0;
+}
+.gritter-with-image {
+	width:220px;
+	float:right;
+}
+/* for the light (white) version of the gritter notice */
+.gritter-light .gritter-item,
+.gritter-light .gritter-bottom,
+.gritter-light .gritter-top,
+.gritter-close {
+    color: #222;
+}
+.gritter-light .gritter-title {
+    text-shadow: none;
+}

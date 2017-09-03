@@ -4,7 +4,7 @@ function sendDialogController(data, $scope, $uibModalInstance) {
         headers: { 
             priority: 9 
         },
-        body: "Pub/Sub over STOMP!"
+        body: '{"connections":[{"url":"f2g.avvero.pw:61614","destinations":["jms.topic.test"]}]}'
     }
     $scope.ok = function () {
         $uibModalInstance.close($scope.message);
