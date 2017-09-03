@@ -1,10 +1,13 @@
-function placesController($scope, $timeout, $http, localStorageService, $uibModal, Notification, config) {
+function placesController($scope, $timeout, $http, localStorageService, $uibModal, Notification, config,
+    hotkeys, $interval) {
     $scope.config = config
     $scope.connection = {}
     $scope.newDestination = ""
     $scope.searchMessages = ""
+    $scope.isStopped = false // остановили обновление страницы
 
-    var _messages = []
+    $scope.messages = []
+    $scope._messages = []
     var client = {}
     $scope.connect = function (connection) {
         Notification.info("Opening Web Socket...")
@@ -14,6 +17,7 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         try {
             client = Stomp.client("ws://" + connection.url + "/stomp", "v11.stomp");
             client.connect("", "", function () { });
+            // connection.connected = true
         } catch (err) {
             Notification.error(err)
             // connection.connected = false
@@ -36,7 +40,12 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         subscription = client.subscribe(destination, function (message) {
             message.body = JSON.parse(message.body)
             console.info(message)
-            _messages.push(message)
+
+            $scope.$apply(function (scope) {
+                $scope._messages.push(message)
+            });
+
+            
         }, {});
         subscription.destination = destination
         connection.subscriptions.push(subscription)
@@ -55,20 +64,16 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             }
         }
     }
-    $scope.messages = []
-    // wrappers
-    $scope.listen = function (delay) {
-        $timeout(function () {
-            var newMessages = _messages.splice(0, _messages.length)
+    $interval(function () {
+        $scope.connection.connected = client.connected
+        if (!$scope.isStopped) {
+            var newMessages = $scope._messages.splice(0, $scope._messages.length)
             for (var i = 0; i < newMessages.length; i++) {
                 $scope.messages.push(newMessages[i])
             }
+        }
+    }, 200);
 
-            $scope.connection.connected = client.connected
-            $scope.listen(100)
-        }, delay, true);
-    }
-    $scope.listen(100)
     $scope.send = function () {
         var modalInstance = $uibModal.open({
             templateUrl: 'views/send.html',
@@ -108,6 +113,12 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             client.connect("", "", function () { });
         }, function () { });
     }
+    hotkeys.add({
+        combo: 'ctrl+space',
+        callback: function (event) {
+            $scope.isStopped = !$scope.isStopped
+        }
+    });
 }
 
 placesController.resolve = {

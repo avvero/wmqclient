@@ -3,7 +3,8 @@ angular.module("flow", [
     'ui.router',
     'ngSanitize',
     'ui.bootstrap',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'cfp.hotkeys'
 ])
 angular.module("flow").constant('constants', {
     version: "1.0.0"

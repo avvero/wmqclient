@@ -57,15 +57,23 @@
                 <section class="sidebar" style="overflow: hidden; width: auto;">
                     <ul class="sidebar-menu tree" data-widget="tree">
                         <li class="header">CONNECTION</li>
-                        <li>
+                        <!-- <li>
                             <a href="" ng-click="disconnect1(connection)">
                                 <i class="fa fa-feed"></i><span>{{connection.url}}</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="" ng-click="send()">
-                                <i class="fa fa-envelope-o text-green"></i><span>Send</span></a>
-                            </li>
+                                <i class="fa fa-envelope-o text-green"></i><span>Send</span>
+                            </a>
+                        </li>
+                        <li class="{{isStopped == true ? 'active-red' : ''}}">
+                            <a href="" ng-click="isStopped = !isStopped">
+                                <i class="fa fa-asterisk"></i>
+                                <span>Freeze</span>
+                                <small class="label pull-right bg-red" ng-show="isStopped">{{_messages.length}}</small>
+                            </a>
+                        </li>
                         <li class="header">ENDPOINTS</li>
                     </ul>
                     <!-- search form -->
