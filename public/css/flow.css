@@ -23,9 +23,23 @@ pre {
     padding: 0px;
     border: none;
     background-color: inherit;
+    margin: 0 0 0px;
 }
 
 .message-prettify {
     position: absolute;
     margin-left: -37px;
+}
+
+.box {
+    margin-bottom: 7px;
+    border-top: 0px;
+}
+
+.content {
+    padding: 7px;
+}
+
+.box-body {
+    padding: 5px;
 }

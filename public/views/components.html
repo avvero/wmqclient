@@ -32,17 +32,19 @@
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown messages-menu">
-                        <a href="" class="dropdown-toggle" ng-click="disconnect(connection)">
-                            <i class="fa fa-feed">Disconnect <b>{{connection.url}}</b></i>
-                        </a>
-                    </li>
-                </ul>
+                <div class="navbar-form navbar-left" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchMessages">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="searchMessages=''"><i class="fa fa-close"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
                 <ul class="nav navbar-nav navbar-custom-menu">
                     <li class="dropdown messages-menu">
-                        <a href="" class="dropdown-toggle" ng-click="send()">
-                            <i class="fa fa-envelope-o text-green"> Send</i>
+                        <a href="" class="dropdown-toggle" ng-click="disconnect(connection)">
+                            <i class="fa fa-unlink"> Disconnect from <b>{{connection.url}}</b></i>
                         </a>
                     </li>
                 </ul>
@@ -51,23 +53,28 @@
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 281px;">
-                <section class="sidebar" style="height: 281px; overflow: hidden; width: auto;">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;">
+                <section class="sidebar" style="overflow: hidden; width: auto;">
                     <ul class="sidebar-menu tree" data-widget="tree">
                         <li class="header">CONNECTION</li>
                         <li>
-                            <a href="" ng-click="disconnect(connection)">
+                            <a href="" ng-click="disconnect1(connection)">
                                 <i class="fa fa-feed"></i><span>{{connection.url}}</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="" ng-click="send()">
+                                <i class="fa fa-envelope-o text-green"></i><span>Send</span></a>
+                            </li>
                         <li class="header">ENDPOINTS</li>
                     </ul>
                     <!-- search form -->
                     <div class="sidebar-form">
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Add...">
+                            <input type="text" class="form-control" placeholder="Add..." ng-model="newDestination">
                             <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <button class="btn btn-flat" ng-click="subscribe(connection, newDestination)"
+                                        ng-disabled="!newDestination">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </span>
@@ -75,9 +82,9 @@
                     </div>
                     <!-- /.search form -->
                     <ul class="sidebar-menu tree" data-widget="tree">
-                        <li ng-repeat="subscription in connection.subscriptions">
+                        <li ng-repeat="subscription in connection.subscriptions" title="Unsubscribe">
                             <a href="" ng-click="unsubscribe(connection, subscription.destination)">
-                            <i class="fa fa-times"></i><span>{{subscription.destination}}</span>
+                            <i class="fa fa-unlink"></i><span>{{subscription.destination}}</span>
                             </a>
                         </li>
                         <li class="header">HISTORY</li>
@@ -96,21 +103,20 @@
         <div class="content-wrapper">
             <!-- Main content -->
             <section class="content">
-                <div class="box" ng-repeat="message in messages | orderBy:'-'">
+                <div class="box" ng-repeat="message in messages | filter:searchMessages | orderBy:'-'">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <b>Headers</b>
+                                <b ng-if="$first">Headers</b>
                                 <pre ng-if="!!message.prettify">{{message.headers | json}}</pre>
                                 <pre ng-if="!message.prettify">{{message.headers}}</pre>
                             </div>
                             <div class="col-md-6">
-                                <b>Body</b>
+                                <b ng-if="$first">Body</b>
                                 <pre ng-if="!!message.prettify">{{message.body | json}}</pre>
                                 <pre ng-if="!message.prettify">{{message.body}}</pre>
                             </div>
-                            <button type="button" class="btn btn-xs btn-primary message-prettify" 
-                                    title="Prettify" ng-click="message.prettify = !message.prettify">
+                            <button type="button" class="btn btn-xs btn-primary message-prettify" title="Prettify" ng-click="message.prettify = !message.prettify">
                                 <i class="fa fa-magic"></i>
                             </button>
                         </div>

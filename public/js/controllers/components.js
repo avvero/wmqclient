@@ -2,6 +2,7 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
     $scope.config = config
     $scope.connection = {}
     $scope.newDestination = ""
+    $scope.searchMessages = ""
 
     var _messages = []
     var client = {}
@@ -39,9 +40,8 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         }, {});
         subscription.destination = destination
         connection.subscriptions.push(subscription)
-    }
-    $scope.subscribeNew = function (connection, destination) {
-        $scope.subscribe(connection, destination)
+
+        //TODO
         $scope.newDestination = ""
     }
     $scope.unsubscribe = function (connection, destination) {
