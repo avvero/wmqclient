@@ -31,6 +31,11 @@ pre {
     margin-left: -37px;
 }
 
+.message-send {
+    position: absolute;
+    margin-left: -62px;
+}
+
 .box {
     margin-bottom: 7px;
     border-top: 0px;

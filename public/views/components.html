@@ -42,10 +42,10 @@
                     </div>
                 </div>
                 <ul class="nav navbar-nav">
-                        <li ng-if="_messages.length > 0">
-                            <a href="" class="text-red">There are frozen messages</a>
-                        </li>
-                    </ul>
+                    <li ng-if="isStopped && _messages.length > 0">
+                        <a href="" class="text-red">There are frozen messages</a>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-custom-menu">
                     <li class="dropdown messages-menu">
                         <a href="" class="dropdown-toggle" ng-click="disconnect(connection)">
@@ -69,14 +69,19 @@
                         </li> -->
                         <li>
                             <a href="" ng-click="send()">
-                                <i class="fa fa-envelope-o text-green"></i><span>Send</span>
+                                <i class="fa fa-envelope text-green"></i><span>Send</span>
                             </a>
                         </li>
                         <li class="{{isStopped == true ? 'active-red' : ''}}">
-                            <a href="" ng-click="isStopped = !isStopped">
+                            <a href="" ng-click="changeIsStoped()">
                                 <i class="fa fa-asterisk"></i>
                                 <span>Freeze</span>
                                 <small class="label pull-right bg-red" ng-show="isStopped">{{_messages.length}}</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="clear()">
+                                <i class="fa fa-eraser"></i><span>Clear</span>
                             </a>
                         </li>
                         <li class="header">ENDPOINTS</li>
@@ -130,7 +135,10 @@
                                 <pre ng-if="!message.prettify">{{message.body}}</pre>
                             </div>
                             <button type="button" class="btn btn-xs btn-primary message-prettify" title="Prettify" ng-click="message.prettify = !message.prettify">
-                                <i class="fa fa-magic"></i>
+                                <i class="fa fa-code"></i>
+                            </button>
+                            <button type="button" class="btn btn-xs btn-success message-send" title="Send" ng-click="send(message)">
+                                <i class="fa fa-envelope"></i>
                             </button>
                         </div>
                     </div>

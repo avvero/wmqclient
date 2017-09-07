@@ -74,14 +74,17 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         }
     }, 200);
 
-    $scope.send = function () {
+    $scope.send = function (message) {
         var modalInstance = $uibModal.open({
             templateUrl: 'views/send.html',
             controller: sendDialogController,
             resolve: {
-                data: function ($q, $http) {
+                message: function ($q, $http) {
                     var deferred = $q.defer();
-                    deferred.resolve({})
+                    deferred.resolve({
+                        headers: message ? message.headers : {},
+                        body: message ? message.body : '', 
+                    })
                     return deferred.promise;
                 }
             }
@@ -119,6 +122,12 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             $scope.isStopped = !$scope.isStopped
         }
     });
+    $scope.changeIsStoped = function() {
+        $scope.isStopped = !$scope.isStopped 
+    }
+    $scope.clear = function() {
+        $scope.messages = []
+    }
 }
 
 placesController.resolve = {
