@@ -5,6 +5,20 @@
             "destinations": [
                 "jms.topic.test"
             ]
+        },
+        {
+            "url": "fxbank-test3.fxclub.org:61614",
+            "destinations": [
+                "jms.topic.test",
+                "events.fxbank.out"
+            ]
+        },
+        {
+            "url": "fxbank-dev.fxclub.org:61614",
+            "destinations": [
+                "jms.topic.test",
+                "events.fxbank.out"
+            ]
         }
     ]    
 }

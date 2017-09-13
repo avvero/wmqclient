@@ -38,14 +38,14 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         }
         Notification.info("Subscribe to " + destination)
         subscription = client.subscribe(destination, function (message) {
-            message.body = JSON.parse(message.body)
+            try {
+                message.body = JSON.parse(message.body)    
+            } catch (err) {}
             console.info(message)
 
             $scope.$apply(function (scope) {
                 $scope._messages.push(message)
             });
-
-            
         }, {});
         subscription.destination = destination
         connection.subscriptions.push(subscription)
@@ -65,6 +65,9 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         }
     }
     $interval(function () {
+        if (!$scope.connection.connected && client.connected) {
+            Notification.info("Connection established to " + $scope.connection.url)
+        }
         $scope.connection.connected = client.connected
         if (!$scope.isStopped) {
             var newMessages = $scope._messages.splice(0, $scope._messages.length)
