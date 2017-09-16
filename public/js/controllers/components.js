@@ -31,6 +31,8 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
         client.disconnect()
     }
     $scope.subscribe = function (connection, destination) {
+        //todo topics only
+        destination = "/topic/"+ destination
         for (var i = 0; i < connection.subscriptions.length; i++) {
             if (connection.subscriptions[i].destination == destination) {
                 return
@@ -93,8 +95,9 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
             }
         });
         modalInstance.result.then(function (message) {
+            //todo topics only
             console.info(message)
-            client.send(message.destination, message.headers, message.body);
+            client.send(message.destinationType + message.destination, message.headers, message.body);
         }, function () { });
     }
     $scope.editConnection = function () {
