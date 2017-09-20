@@ -4,7 +4,7 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
     $scope.connection = {}
     $scope.newDestination = ""
     $scope.searchMessages = ""
-    $scope.isStopped = false // остановили обновление страницы
+    $scope.isStopped = false // add all incomming messages to page
 
     $scope.messages = []
     $scope._messages = []
@@ -32,14 +32,16 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
     }
     $scope.subscribe = function (connection, destination) {
         //todo topics only
-        destination = "/topic/"+ destination
+        var destinationType = "/topic/" 
         for (var i = 0; i < connection.subscriptions.length; i++) {
-            if (connection.subscriptions[i].destination == destination) {
+            if (connection.subscriptions[i].destination == (destinationType + destination)) {
                 return
             }
         }
-        Notification.info("Subscribe to " + destination)
-        subscription = client.subscribe(destination, function (message) {
+        Notification.info("Subscribe to " + destinationType + destination)
+        subscription = client.subscribe(destinationType + destination, function (message) {
+            message.destinationType = destinationType
+            message.destination = destination
             try {
                 message.body = JSON.parse(message.body)    
             } catch (err) {}
@@ -49,6 +51,7 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
                 $scope._messages.push(message)
             });
         }, {});
+        subscription.destinationType = destinationType
         subscription.destination = destination
         connection.subscriptions.push(subscription)
 
@@ -87,6 +90,8 @@ function placesController($scope, $timeout, $http, localStorageService, $uibModa
                 message: function ($q, $http) {
                     var deferred = $q.defer();
                     deferred.resolve({
+                        destinationType: message ? message.destinationType: $scope.connection.subscriptions[0].destinationType,
+                        destination: message ? message.destination: $scope.connection.subscriptions[0].destination,
                         headers: message ? message.headers : {},
                         body: message ? message.body : '', 
                     })

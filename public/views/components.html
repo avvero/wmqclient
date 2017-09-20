@@ -67,7 +67,7 @@
                                 <i class="fa fa-feed"></i><span>{{connection.url}}</span>
                             </a>
                         </li> -->
-                        <li>
+                        <li ng-if="connection.subscriptions.length > 0">
                             <a href="" ng-click="send()">
                                 <i class="fa fa-envelope text-green"></i><span>Send</span>
                             </a>
