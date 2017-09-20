@@ -48,3 +48,7 @@ pre {
 .box-body {
     padding: 5px;
 }
+
+.no_subscription_message {
+    text-align: center;
+}

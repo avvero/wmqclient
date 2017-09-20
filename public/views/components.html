@@ -121,6 +121,9 @@
         <div class="content-wrapper">
             <!-- Main content -->
             <section class="content">
+                <div ng-if="connection.subscriptions.length == 0 && messages.length == 0">
+                    <h3 class="no_subscription_message">Subscribe to endpoint to get and send messages</h3>
+                </div>
                 <div class="box" ng-repeat="message in messages | filter:searchMessages | orderBy:'-'">
                     <div class="box-body">
                         <div class="row">
