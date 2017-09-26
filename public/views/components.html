@@ -81,7 +81,9 @@
                         </li>
                         <li>
                             <a href="" ng-click="clear()">
-                                <i class="fa fa-eraser"></i><span>Clear</span>
+                                <i class="fa fa-eraser"></i>
+                                <span>Clear</span>
+                                <small class="label pull-right bg-green" ng-show="isStopped">{{messages.length}}</small>
                             </a>
                         </li>
                         <li class="header">SUBSCRIPTION (topics only)</li>
