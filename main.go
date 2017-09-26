@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	httpPort = flag.String("httpPort", "8089", "http server port")
+	httpPort = flag.String("httpPort", "8088", "http server port")
 )
 
 func main() {
