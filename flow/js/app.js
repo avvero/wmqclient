@@ -4,10 +4,8 @@ angular.module("flow", [
     'ngSanitize',
     'stompclient',
     'ui.bootstrap',
-    'ui.bootstrap-slider',
     'LocalStorageModule',
     'chart.js',
-    'monospaced.mousewheel',
     'cfp.hotkeys'
 ])
 angular.module("flow").constant('constants', {
