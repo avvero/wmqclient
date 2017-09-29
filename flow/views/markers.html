@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<body>
+    <div class="markers_container" ng-if="!stompclient.connected">
+        <div class="page-header">
+            <h1>Flow <small>follow logs over web</small></h1>
+        </div>
+        <div ng-if="config.connections.length > 0">
+            <p class="lead">Choose connection :</p>
+            <p class="lead" ng-repeat="connection in config.connections">
+                <a ng-href="#" ng-click="connect(connection)">{{connection.url}}</a>
+            </p>
+        </div>
+        <div ng-if="!markers || markers.length == 0">
+            <p class="lead">
+                No markers to follow :(
+            </p>
+            <p>
+                Try to <a href="https://github.com/avvero/flow">follow instruction</a> at first
+            </p>
+        </div>
+    </div>
+    <div class="markers_container" ng-if="stompclient.connected">
+        <div class="page-header">
+            <h1>Flow <small>follow logs over web</small></h1>
+        </div>
+        <div ng-if="connection.destinations.length > 0">
+            <p class="lead">Choose subscription :</p>
+            <p class="lead" ng-repeat="destination in connection.destinations">
+                <a ng-href="#follow/{{destination}}">{{destination}}</a>
+            </p>
+        </div>
+        <div ng-if="!markers || markers.length == 0">
+            <p class="lead">
+                No markers to follow :(
+            </p>
+            <p>
+                Try to <a href="https://github.com/avvero/flow">follow instruction</a> at first
+            </p>
+        </div>
+    </div>
+    <div class="github_link"><a href="https://github.com/avvero/flow">github</a></div>
+</body>

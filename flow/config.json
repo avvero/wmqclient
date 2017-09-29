@@ -1,0 +1,10 @@
+{
+    "connections":[
+        {
+            "url": "f2g.avvero.pw:61614",
+            "destinations": [
+                "jms.topic.test"
+            ]
+        }
+    ]    
+}

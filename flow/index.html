@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="flow" ng-controller="mainController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+    <title ng-bind="page.title()"></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/AdminLTE.min.css">
+    <link rel="stylesheet" href="css/skin-blue.min.css">
+
+    <link rel="stylesheet" href="css/flow.css">
+    <link rel="stylesheet" href="css/angular-chart.min.css">
+    <link rel="stylesheet" href="css/slider.css">
+
+    <script src="js/vendor/jquery-1.11.1.min.js"></script>
+
+    <script src="js/vendor/stomp.js"></script>
+
+    <script src="js/vendor/Chart.min.js"></script>
+    <script src="js/vendor/hamster.js"></script>
+
+    <script src="js/vendor/angular.js"></script>
+    <script src="js/vendor/angular-sanitize.js"></script>
+    <script src="js/vendor/angular-route.js"></script>
+    <script src="js/vendor/angular-ui-router.js"></script>
+    <script src="js/vendor/angular-local-storage.js"></script>
+    <script src="js/vendor/angular-chart.min.js"></script>
+    <script src="js/vendor/mousewheel.js"></script>
+    <script src="js/vendor/bootstrap-slider.min.js"></script>
+    <script src="js/vendor/slider.js"></script>
+    <script src="js/vendor/hotkeys.min.js"></script>
+
+    <script src="js/vendor/stompie.js"></script>
+    <!--<script src="js/services/stompie_stub.js"></script>-->
+
+    <script src="js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+    <script src="js/vendor/moment.min.js"></script>
+    <script src="js/vendor/vkbeautify.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/markers.js"></script>
+    <script src="js/controllers/flow.js"></script>
+    <script src="js/controllers/sendDialog.js"></script>
+    <script src="js/directives/cause.js"></script>
+    <script src="js/directives/logback.js"></script>
+    <script src="js/directives/whenScrolledUp.js"></script>
+    <script src="js/directives/logDateTime.js"></script>
+    <script src="js/directives/message.js"></script>
+    <script src="js/directives/messageMultiline.js"></script>
+    <script src="js/directives/multiline.js"></script>
+    <script src="js/directives/jms.js"></script>
+    <script src="js/directives/logChart.js"></script>
+    <script src="js/filters/logComplex.js"></script>
+    <script src="js/filters/reverse.js"></script>
+    <script src="js/filters/trusted.js"></script>
+    <script src="js/services/utils.js"></script>
+    <script src="js/services/page.js"></script>
+    <script src="js/providers/local-timeout.js"></script>
+    <script src="js/services/stompclient.js"></script>
+    <script src="js/providers/notification.js"></script>
+</head>
+<body>
+    <div ui-view="single" autoscroll="false"></div>
+</body>
+</html>

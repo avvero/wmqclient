@@ -7,12 +7,12 @@ import (
 )
 
 var (
-	httpPort = flag.String("httpPort", "8088", "http server port")
+	httpPort = flag.String("httpPort", "8080", "http server port")
 )
 
 func main() {
 	flag.Parse()
-	http.Handle("/", http.FileServer(http.Dir("public")))
+	http.Handle("/", http.FileServer(http.Dir("flow")))
 	// http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
 	// 	w.Header().Set("Content-Type", "application/json")
 	// 	w.Write()
