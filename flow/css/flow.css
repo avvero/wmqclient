@@ -596,16 +596,20 @@ pre {
     border: none;
     background-color: inherit;
     margin: 0 0 0px;
+    font-size: inherit;
 }
 
 .message-prettify {
     position: absolute;
-    margin-left: -37px;
 }
 
 .message-send {
     position: absolute;
-    margin-left: -62px;
+    margin-left: -27px;
+}
+
+.jms-message-commands {
+    float: right;
 }
 
 .box {
@@ -623,4 +627,10 @@ pre {
 
 .no_subscription_message {
     text-align: center;
+}
+
+.log-entry{
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-bottom-color: #dcdedf;    
 }

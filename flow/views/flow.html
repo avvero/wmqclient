@@ -168,7 +168,7 @@
                          ng-click="isSelectMode ? setSelected(log, 'selected') : nullFunction()"
                          tension="{{tension}}"  style="{{$first? getShift(tension) : ''}}">
                         <!--use logback template-->
-                        <div jms id="logEntry_{{log.idx}}"></div>
+                        <div jms id="logEntry_{{log.idx}}" class="log-entry"></div>
                     </div>
                 </div>
             </div>

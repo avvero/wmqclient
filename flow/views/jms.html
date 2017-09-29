@@ -4,22 +4,22 @@
     <span class="log-date" ng-click="onClick(log, 'selected')">
         {{log.headers.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}
     </span>
-    <div class="row">
-        <div class="col-md-6">
-            <b ng-if="$first">Headers</b>
-            <pre ng-if="!!log.prettify">{{log.headers | json}}</pre>
-            <pre ng-if="!log.prettify">{{log.headers}}</pre>
-        </div>
-        <div class="col-md-6">
-            <b ng-if="$first">Body</b>
-            <pre ng-if="!!log.prettify">{{log.body | json}}</pre>
-            <pre ng-if="!log.prettify">{{log.body}}</pre>
-        </div>
+    <div class="jms-message-commands">
         <button type="button" class="btn btn-xs btn-primary message-prettify" title="Prettify" ng-click="log.prettify = !log.prettify">
             <i class="fa fa-code"></i>
         </button>
         <button type="button" class="btn btn-xs btn-success message-send" title="Send" ng-click="send(log)">
             <i class="fa fa-envelope"></i>
         </button>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <pre ng-if="!!log.prettify">{{log.headers | json}}</pre>
+            <pre ng-if="!log.prettify">{{log.headers}}</pre>
+        </div>
+        <div class="col-md-6">
+            <pre ng-if="!!log.prettify">{{log.body | json}}</pre>
+            <pre ng-if="!log.prettify">{{log.body}}</pre>
+        </div>
     </div>
 </span>
