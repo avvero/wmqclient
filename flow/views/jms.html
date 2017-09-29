@@ -1,25 +1,27 @@
 <span>
-    <span ng-if="isOptionOn('app.isDebugMode')">{{log.headers['message-id']}}</span>
-    <!--<span>{{tension}}</span>-->
-    <span class="log-date" ng-click="onClick(log, 'selected')">
-        {{log.headers.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}
-    </span>
     <div class="jms-message-commands">
-        <button type="button" class="btn btn-xs btn-primary message-prettify" title="Prettify" ng-click="log.prettify = !log.prettify">
-            <i class="fa fa-code"></i>
+        <button type="button" class="btn btn-xs btn-white message-prettify" title="Prettify" ng-click="log.prettify = !log.prettify">
+            <i class="fa fa-bolt"></i>
         </button>
-        <button type="button" class="btn btn-xs btn-success message-send" title="Send" ng-click="send(log)">
+        <button type="button" class="btn btn-xs btn-white message-send" title="Resend" ng-click="send(log)">
             <i class="fa fa-envelope"></i>
         </button>
     </div>
-    <div class="row">
+    <span ng-if="isOptionOn('app.isDebugMode')">{{log.headers['message-id']}}</span>
+    <!--<span>{{tension}}</span>-->
+    <span class="jms-date" ng-click="onClick(log, 'selected')">{{log.headers.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+    <div class="jms-headers" ng-if="!log.prettify">
+        <span class="label">Headers</span>: {{log.headers}}
+    </div>
+    <div class="jms-body" ng-if="!log.prettify">
+        <span class="label">Body</span>: {{log.body}}
+    </div>
+    <div class="row" ng-if="!!log.prettify">
         <div class="col-md-6">
-            <pre ng-if="!!log.prettify">{{log.headers | json}}</pre>
-            <pre ng-if="!log.prettify">{{log.headers}}</pre>
+            <pre>{{log.headers | json}}</pre>
         </div>
         <div class="col-md-6">
-            <pre ng-if="!!log.prettify">{{log.body | json}}</pre>
-            <pre ng-if="!log.prettify">{{log.body}}</pre>
+            <pre>{{log.body | json}}</pre>
         </div>
     </div>
 </span>

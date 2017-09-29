@@ -82,6 +82,9 @@
                     <li class="active">
                         <a ng-href=""><i class="fa fa-hashtag"></i><span>{{currentMarker}}</span></a>
                     </li>
+                    <li>
+                        <a href="" ng-click="send()"><i class="fa fa-envelope"></i> <span>Send</span></a>
+                    </li>
                     <li ng-repeat="marker in markers" class="{{currentMarker == marker ? 'active' : ''}}">
                         <a ng-href="#follow/{{marker}}"><i class="fa fa-hashtag"></i><span>{{marker}}</span></a>
                     </li>
@@ -137,9 +140,6 @@
                     <li class="header"><b></b></li>
                     <li>
                         <a href="" ng-click="showOptionsDialog()"><i class="fa fa-gears"></i> <span>Options</span></a>
-                    </li>
-                    <li>
-                        <a href="" ng-click="send()"><i class="fa fa-gears"></i> <span>Send</span></a>
                     </li>
                     <li>
                         <a href="" ng-click="setOption('view.hideHelp', false)"><i class="fa fa-question"></i> <span>Help</span></a>

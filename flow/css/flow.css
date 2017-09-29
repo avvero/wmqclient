@@ -599,17 +599,26 @@ pre {
     font-size: inherit;
 }
 
-.message-prettify {
-    position: absolute;
+.message-send {
+    margin-top: 1px;
 }
 
-.message-send {
-    position: absolute;
-    margin-left: -27px;
+.message-prettify i{
+    width: 12px;
+}
+
+.message-send i {
+    width: 12px;
 }
 
 .jms-message-commands {
-    float: right;
+    position: absolute;
+    padding-top: 20px;
+    width: 10px;
+}
+
+.jms-message-commands button {
+    padding: 0px 4px;
 }
 
 .box {
@@ -629,8 +638,36 @@ pre {
     text-align: center;
 }
 
-.log-entry{
+.log-entry {
     border-bottom-style: dashed;
     border-bottom-width: 1px;
     border-bottom-color: #dcdedf;    
+}
+
+.log-entry span.jms-date {
+    color: #51466a;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.log-entry .jms-headers .label {
+    background-color: #3C8DBC;
+}
+
+.log-entry .jms-body .label{
+    background-color: #F14419;
+}
+
+.log-entry .jms-headers,
+.log-entry .jms-body {
+    margin-left: 25px;
+}
+
+.btn-white {
+    background-color: #ffffff;
+    border-color: #dcdedf;
+    color: #dcdedf;
 }
