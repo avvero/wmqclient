@@ -35,7 +35,9 @@ angular.module('stompclient', [])
     }
 
     _stompclient.disconnect = function (callback) {
-
+        client.disconnect()
+        _stompclient.connected = false
+        _subscriptions = []
     };
 
     _stompclient.subscribe = function (destination, callback) {
