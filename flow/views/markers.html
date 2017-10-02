@@ -5,9 +5,21 @@
             <h1>WMQ client <small>web client for activemq</small></h1>
         </div>
         <div ng-if="config.connections.length > 0">
-            <p class="lead">Choose connection :</p>
-            <p class="lead" ng-repeat="connection in config.connections">
-                <a ng-href="#" ng-click="connect(connection)">{{connection.url}}</a>
+            <p class="lead">Set url to broker to connect:</p>
+            <div class="input-group">
+                <input type="text" class="form-control list-group-item" ng-model="newConnectionUrl"
+                       placeholder="Url">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="connectByUrl(newConnectionUrl)" ng-disabled="!newConnectionUrl">
+                        <i class="fa fa-open">Connect</i>
+                    </button>
+                </span>
+            </div>
+            <p class="lead">
+                <div>or select:</div>
+                <p ng-repeat="connection in config.connections">
+                    <a ng-href="#" ng-click="connect(connection)">{{connection.url}}</a>
+                </p>
             </p>
         </div>
     </div>
@@ -16,9 +28,21 @@
             <h1>WMQ client <small>web client for activemq</small></h1>
         </div>
         <div ng-if="connection.destinations.length > 0">
-            <p class="lead">Choose subscription :</p>
-            <p class="lead" ng-repeat="destination in connection.destinations">
-                <a ng-href="#follow/{{destination}}">{{destination}}</a>
+            <p class="lead">Set endpoint to subscribe:</p>
+            <div class="input-group">
+                <input type="text" class="form-control list-group-item" ng-model="newEndpoint"
+                        placeholder="Endpoint name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="subscribe(newEndpoint)" ng-disabled="!newEndpoint">
+                        <i class="fa fa-open">Subscribe</i>
+                    </button>
+                </span>
+            </div>
+            <p class="lead">
+                <div>or select:</div>
+                <p ng-repeat="destination in connection.destinations">
+                    <a ng-href="#follow/{{destination}}">{{destination}}</a>
+                </p>
             </p>
         </div>
     </div>

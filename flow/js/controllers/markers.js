@@ -1,4 +1,4 @@
-function markersController($scope, page, config, $stateParams, $stompclient, Notification) {
+function markersController($scope, page, config, $stateParams, $stompclient, Notification, $window) {
     $scope.config = config
     $scope.stompclient = $stompclient
     $scope.connection = null
@@ -6,6 +6,16 @@ function markersController($scope, page, config, $stateParams, $stompclient, Not
         $stompclient.connect(connection.url, function(){
             $scope.connection = connection
         })
+    }
+    $scope.connectByUrl = function (url) {
+        $stompclient.connect(url, function(){
+            $scope.connection = {
+                url: url
+            }
+        })
+    }
+    $scope.subscribe = function (endpoint) {
+        $window.location.href = "#follow/" + endpoint
     }
 }
 
