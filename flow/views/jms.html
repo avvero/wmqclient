@@ -16,11 +16,11 @@
     <div class="jms-body" ng-if="!log.prettify">
         <span class="label">Body</span>: {{log.body}}
     </div>
-    <div class="row" ng-if="!!log.prettify">
-        <div class="col-md-6">
+    <div class="row jms-prettified" ng-if="!!log.prettify">
+        <div class="col-md-6 jms-prettified-headers">
             <pre>{{log.headers | json}}</pre>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 jms-prettified-body">
             <pre>{{log.body | json}}</pre>
         </div>
     </div>

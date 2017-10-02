@@ -642,6 +642,7 @@ pre {
     border-bottom-style: dashed;
     border-bottom-width: 1px;
     border-bottom-color: #dcdedf;    
+    min-height: 63px
 }
 
 .log-entry span.jms-date {
@@ -670,4 +671,14 @@ pre {
     background-color: #ffffff;
     border-color: #dcdedf;
     color: #dcdedf;
+}
+
+.jms-prettified {
+    margin-left: 25px;
+    margin-top: 1px;
+}
+
+.jms-prettified-headers,
+.jms-prettified-body {
+    padding-left: 3px;
 }
