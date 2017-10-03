@@ -1,8 +1,21 @@
 function sendDialogController(message, $scope, $uibModalInstance) {
+    $scope.prepareHeaders = function (headers) {
+        var copy = jQuery.extend(true, {}, headers || {})
+        delete copy['content-length'];
+        delete copy['destination'];
+        delete copy['expires'];
+        delete copy['message-id'];
+        delete copy['priority'];
+        delete copy['subscription'];
+        delete copy['priority'];
+        delete copy['timestamp'];
+        return copy
+    }
+
     $scope.message = {
         destinationType: message.destinationType || "/topic/",
         destination: message.destination || "",
-        // headers: message.headers,
+        headers: $scope.prepareHeaders(message.headers),
         body: message.body ? JSON.stringify(message.body) : '{"connections":[{"url":"f2g.avvero.pw:61614","destinations":["jms.topic.test"]}]}'
     }
     $scope.ok = function () {
