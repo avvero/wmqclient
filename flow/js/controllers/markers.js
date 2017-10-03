@@ -1,4 +1,6 @@
 function markersController($scope, page, config, $stateParams, $stompclient, Notification, $window) {
+    page.setTitle('WMQ client')
+
     $scope.config = config
     $scope.stompclient = $stompclient
     $scope.connection = null
@@ -6,6 +8,9 @@ function markersController($scope, page, config, $stateParams, $stompclient, Not
         $stompclient.connect(connection.url, function(){
             $scope.connection = connection
         })
+    }
+    $scope.disconnect = function () {
+        $stompclient.disconnect()
     }
     $scope.connectByUrl = function (url) {
         $stompclient.connect(url, function(){

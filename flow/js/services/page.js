@@ -1,5 +1,5 @@
 angular.module('flow').factory('page', function () {
-    var title = 'Flow';
+    var title = 'WMQ client';
     return {
         title: function () {
             return title;
