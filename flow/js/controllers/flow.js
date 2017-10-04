@@ -44,6 +44,7 @@ function flowController($scope, $stompclient, $timeout, $stateParams, localStora
             $scope.isStopped = !$scope.isStopped
         }
     });
+    $scope.lastMessage = null
     $scope.send = function (message) {
         var modalInstance = $uibModal.open({
             templateUrl: 'views/send.html',
@@ -64,6 +65,7 @@ function flowController($scope, $stompclient, $timeout, $stateParams, localStora
         modalInstance.result.then(function (message) {
             //todo topics only
             console.info(message)
+            $scope.lastMessage = message
             $stompclient.send(message.destinationType + "/" + message.destination, message.headers, message.body);
         }, function () { });
     }

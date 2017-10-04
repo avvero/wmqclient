@@ -83,7 +83,7 @@
                         <a ng-href=""><i class="fa fa-hashtag"></i><span>{{currentMarker}}</span></a>
                     </li>
                     <li>
-                        <a href="" ng-click="send()"><i class="fa fa-envelope"></i> <span>Send</span></a>
+                        <a href="" ng-click="send(lastMessage)"><i class="fa fa-envelope"></i> <span>Send</span></a>
                     </li>
                     <li ng-repeat="marker in markers" class="{{currentMarker == marker ? 'active' : ''}}">
                         <a ng-href="#follow/{{marker}}"><i class="fa fa-hashtag"></i><span>{{marker}}</span></a>

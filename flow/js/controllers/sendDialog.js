@@ -12,12 +12,19 @@ function sendDialogController(message, $scope, $uibModalInstance) {
         delete copy['timestamp'];
         return copy
     }
+    $scope.prepareBody = function (body) {
+        if (typeof body === 'object') {
+            return JSON.stringify(body)
+        } else {
+            return body
+        }
+    }
 
     $scope.message = {
         destinationType: message.destinationType || "/topic",
         destination: message.destination || "",
         headers: $scope.prepareHeaders(message.headers),
-        body: message.body ? JSON.stringify(message.body) : '{"connections":[{"url":"f2g.avvero.pw:61614","destinations":["jms.topic.test"]}]}'
+        body: message.body ? $scope.prepareBody(message.body) : '{"foo":"bar"}'
     }
 
     for (var key in $scope.message.headers) {
