@@ -8,8 +8,8 @@
                 <button type="button" ng-click="showDestionationSelector()"
                     class="btn btn-default dropdown-toggle">{{message.destinationType}} <span class="caret"></span></button>
                 <ul class="dropdown-menu" ng-style="{display: selectorStyle}">
-                    <li><a href="" ng-click="setDestionationType('/topic/')">/topic/</a></li>
-                    <li><a href="" ng-click="setDestionationType('/queue/')">/queue/</a></li>
+                    <li><a href="" ng-click="setDestionationType('/topic')">/topic/</a></li>
+                    <li><a href="" ng-click="setDestionationType('/queue')">/queue/</a></li>
                 </ul>
                 </div><!-- /btn-group -->
             <input type="text" name="destination" class="form-control" placeholder="name" required ng-model="message.destination">
