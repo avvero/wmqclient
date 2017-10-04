@@ -1,4 +1,5 @@
 function sendDialogController(message, $scope, $uibModalInstance) {
+    $scope.headerList = []
     $scope.prepareHeaders = function (headers) {
         var copy = jQuery.extend(true, {}, headers || {})
         delete copy['content-length'];
@@ -18,8 +19,19 @@ function sendDialogController(message, $scope, $uibModalInstance) {
         headers: $scope.prepareHeaders(message.headers),
         body: message.body ? JSON.stringify(message.body) : '{"connections":[{"url":"f2g.avvero.pw:61614","destinations":["jms.topic.test"]}]}'
     }
+
+    for (var key in $scope.message.headers) {
+        $scope.headerList.push({
+            key: key,
+            value: $scope.message.headers[key]
+        })
+    }
+
     $scope.ok = function () {
-        $uibModalInstance.close($scope.message);
+        for (var i = 0; i < $scope.headerList.length; i++) {
+            $scope.message.headers[$scope.headerList[i].key] = $scope.headerList[i].value
+        }
+         $uibModalInstance.close($scope.message);
     }
     $scope.showSelector = false
     $scope.selectorStyle = ""
