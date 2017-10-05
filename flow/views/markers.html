@@ -7,10 +7,18 @@
         <div>
             <p class="lead">Set url to WebSocket transport to connect</p>
             <div class="input-group">
+                <span class="input-group-btn" ng-if="connectionsHistory.length > 0">
+                    <button class="btn btn-default" title="History" ng-click="showConnectionsHistory = !showConnectionsHistory">
+                        <i class="fa fa-list-alt"></i>
+                    </button>
+                    <ul class="dropdown-menu {{showConnectionsHistory ? 'show' : ''}}">
+                        <li ng-repeat="url in connectionsHistory"><a href="javascript:;" ng-click="connectByUrl(url)">{{url}}</a></li>
+                    </ul>
+                </span>
                 <input type="text" class="form-control list-group-item" ng-model="newConnectionUrl"
                        placeholder="Url">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="connectByUrl(newConnectionUrl)" ng-disabled="!newConnectionUrl">
+                    <button class="btn btn-info btn-flat" ng-click="connectByUrl(newConnectionUrl)" ng-disabled="!newConnectionUrl">
                         <i class="fa fa-open">Connect</i>
                     </button>
                 </span>
@@ -30,19 +38,26 @@
         <div>
             <p class="lead">Set endpoint to subscribe</p>
             <div class="input-group">
+                <span class="input-group-btn" ng-if="endpointsHistory.length > 0">
+                    <button class="btn btn-default" title="History" ng-click="showEndpointsHistory = !showEndpointsHistory">
+                        <i class="fa fa-list-alt"></i>
+                    </button>
+                    <ul class="dropdown-menu {{showEndpointsHistory ? 'show' : ''}}">
+                        <li ng-repeat="endpoint in endpointsHistory"><a href="javascript:;" ng-click="subscribe(endpoint)">{{endpoint}}</a></li>
+                    </ul>
+                </span>
                 <input type="text" class="form-control list-group-item" ng-model="newEndpoint"
                         placeholder="Endpoint name">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="subscribe(newEndpoint)" ng-disabled="!newEndpoint">
+                    <button class="btn btn-info btn-flat" ng-click="subscribe(newEndpoint)" ng-disabled="!newEndpoint">
                         <i class="fa fa-open">Subscribe</i>
                     </button>
                 </span>
             </div>
-            <p class="lead">
-                <div>or select:</div>
-                <p ng-repeat="destination in connection.destinations">
-                    <a ng-href="#follow/{{destination}}">{{destination}}</a>
-                </p>
+            <p class="lead"></p>
+            <div ng-if="connection.destinations.length > 0">or select:</div>
+            <p ng-repeat="destination in connection.destinations">
+                <a href="javascript:;" ng-click="subscribe(destination)">{{destination}}</a>
             </p>
             <p class="lead">
                 <button class="btn btn-default" ng-click="disconnect()">
