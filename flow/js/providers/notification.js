@@ -12,7 +12,7 @@ angular.module('flow').factory('Notification', function () {
     this.error = function (text) {
         var noti = {
             id: -1,
-            title: 'Ошибка',
+            title: 'Error',
             time: 5000,
             text: text,
             class_name: 'gritter-error'
@@ -23,7 +23,7 @@ angular.module('flow').factory('Notification', function () {
     this.success = function (text) {
         var noti = {
             id: -1,
-            title: 'Успех',
+            title: 'Success',
             time: 3000,
             text: text,
             class_name: 'gritter-success'
@@ -33,7 +33,7 @@ angular.module('flow').factory('Notification', function () {
     this.successBg = function (text) {
         var noti = {
             id: -1,
-            title: 'Успех',
+            title: 'Success',
             time: 3000,
             text: text,
             class_name: 'gritter-success'

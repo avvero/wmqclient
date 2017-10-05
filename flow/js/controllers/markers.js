@@ -4,20 +4,23 @@ function markersController($scope, page, config, $stateParams, $stompclient, Not
     $scope.config = config
     $scope.stompclient = $stompclient
     $scope.connection = null
+    $scope.callback = function(connection){
+        $stompclient.connected = true
+        $stompclient.endpoint = connection.url
+        $scope.connection = connection
+    }
+    $scope.errorCallback = function(error){
+        $stompclient.connected = false
+        Notification.error(error)
+    }
     $scope.connect = function (connection) {
-        $stompclient.connect(connection.url, function(){
-            $scope.connection = connection
-        })
+        $stompclient.connect(connection.url, function(){$scope.callback(connection)}, $scope.errorCallback)
     }
     $scope.disconnect = function () {
         $stompclient.disconnect()
     }
     $scope.connectByUrl = function (url) {
-        $stompclient.connect(url, function(){
-            $scope.connection = {
-                url: url
-            }
-        })
+        $stompclient.connect(url, function(){$scope.callback({url: url})}, $scope.errorCallback)
     }
     $scope.subscribe = function (endpoint) {
         $window.location.href = "#follow/" + endpoint

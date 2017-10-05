@@ -9,22 +9,27 @@ angular.module('stompclient', [])
 
     _stompclient.connected = false;
 
-    _stompclient.connect = function (endpoint, callback) {
-        //Notification.info("Opening Web Socket...")
+    _stompclient.connect = function (endpoint, callback, errorCallback) {
         if (_stompclient.connected) client.disconnect()
-        try {
-            client = Stomp.client("ws://" + endpoint + "/stomp", "v11.stomp");
-            client.connect("", "", function () { });
-            _stompclient.connected = true
-        } catch (err) {
-            Notification.error(err)
-            _stompclient.connected = false
-            return
-        }
-        _stompclient.endpoint = endpoint
-        _stompclient.subscriptions = []
-        callback()
+        client = Stomp.client("ws://" + endpoint + "/stomp", "v11.stomp");
+        var login = ""
+        var passcode = ""
+        client.connect(login, passcode, function() {
+            $rootScope.$apply(function (scope) {
+                callback()
+            })
+        }, function(error) {
+            $rootScope.$apply(function (scope) {
+                errorCallback(error)
+            })
+        })
     };
+
+    var apply = function(callback) {
+        $rootScope.$apply(function (scope) {
+            callback
+        });
+    }
 
     _stompclient.using = function (endpoint, callbacks) {
 
