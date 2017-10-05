@@ -278,6 +278,6 @@ function flowController($scope, $stompclient, $timeout, $stateParams, localStora
     }
     $scope.setDefaultOption('view.showMdc', true)
     $scope.setDefaultOption('view.showChart', false)
-    $scope.setDefaultOption('view.hideHelp', false)
+    $scope.setDefaultOption('view.hideHelp', true)
     $scope.setDefaultOption('app.isDebugMode', false)
 }
