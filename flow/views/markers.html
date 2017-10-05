@@ -7,7 +7,7 @@
         <div>
             <p class="lead">Set url to WebSocket transport to connect</p>
             <div class="input-group">
-                <span class="input-group-btn" ng-if="connectionsHistory.length > 0">
+                <span class="input-group-btn" ng-if="connectionsHistory.length > 0" click-outside="showConnectionsHistory = false">
                     <button class="btn btn-default" title="History" ng-click="showConnectionsHistory = !showConnectionsHistory">
                         <i class="fa fa-list-alt"></i>
                     </button>
@@ -38,7 +38,7 @@
         <div>
             <p class="lead">Set endpoint to subscribe</p>
             <div class="input-group">
-                <span class="input-group-btn" ng-if="endpointsHistory.length > 0">
+                <span class="input-group-btn" ng-if="endpointsHistory.length > 0" click-outside="showEndpointsHistory = false">
                     <button class="btn btn-default" title="History" ng-click="showEndpointsHistory = !showEndpointsHistory">
                         <i class="fa fa-list-alt"></i>
                     </button>

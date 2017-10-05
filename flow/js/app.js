@@ -6,7 +6,8 @@ angular.module("flow", [
     'ui.bootstrap',
     'LocalStorageModule',
     'chart.js',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'angular-click-outside'
 ])
 angular.module("flow").constant('constants', {
     version: "1.0.2"
