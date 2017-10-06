@@ -682,3 +682,19 @@ pre {
 .jms-prettified-body {
     padding-left: 3px;
 }
+
+.send-form .row {
+    margin-right: 0px;    
+}
+
+.send-form .history pre {
+    height: 24px;
+    font-size: 8px;
+    overflow: hidden; 
+}
+/*
+.history .list-group {
+    overflow-y: auto;
+    max-height: calc(100vh - 240px);
+}
+*/

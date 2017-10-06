@@ -1,6 +1,15 @@
-function sendDialogController(message, $scope, $uibModalInstance) {
-    $scope.headerList = []
-    $scope.prepareHeaders = function (headers) {
+function sendDialogController(message, $scope, $uibModalInstance, localStorageService) {
+    $scope.history = localStorageService.get("sendHistory") || []
+    $scope.saveHistory = function(newEntry) {
+        //if (!$scope.contains($scope.history, newEntry)){
+        $scope.history.unshift(newEntry)    
+        //}
+        if ($scope.history.length > 10) {
+            $scope.history.splice(-1,1)
+        }
+        localStorageService.set("sendHistory", $scope.history)
+    }
+    $scope.clearHeaders = function (headers) {
         var copy = jQuery.extend(true, {}, headers || {})
         delete copy['content-length'];
         delete copy['destination'];
@@ -12,33 +21,38 @@ function sendDialogController(message, $scope, $uibModalInstance) {
         delete copy['timestamp'];
         return copy
     }
-    $scope.prepareBody = function (body) {
+    $scope.stringifyBody = function (body) {
         if (typeof body === 'object') {
             return JSON.stringify(body)
         } else {
             return body
         }
     }
+    $scope.setMessage = function(entry) {
+        $scope.message.headers =  $scope.clearHeaders(entry.headers),
+        $scope.message.body =  entry.body ? $scope.stringifyBody(entry.body) : '{"foo":"bar"}'
+
+        $scope.message.headerList = []
+        for (var key in $scope.message.headers) {
+            $scope.message.headerList.push({
+                key: key,
+                value: $scope.message.headers[key]
+            })
+        }
+    }
 
     $scope.message = {
         destinationType: message.destinationType || "/topic",
-        destination: message.destination || "",
-        headers: $scope.prepareHeaders(message.headers),
-        body: message.body ? $scope.prepareBody(message.body) : '{"foo":"bar"}'
+        destination: message.destination || ""
     }
-
-    for (var key in $scope.message.headers) {
-        $scope.headerList.push({
-            key: key,
-            value: $scope.message.headers[key]
-        })
-    }
+    $scope.setMessage(message)
 
     $scope.ok = function () {
-        for (var i = 0; i < $scope.headerList.length; i++) {
-            $scope.message.headers[$scope.headerList[i].key] = $scope.headerList[i].value
+        for (var i = 0; i < $scope.message.headerList.length; i++) {
+            $scope.message.headers[$scope.message.headerList[i].key] = $scope.message.headerList[i].value
         }
-         $uibModalInstance.close($scope.message);
+        $scope.saveHistory($scope.message)
+        $uibModalInstance.close($scope.message);
     }
     $scope.showSelector = false
     $scope.selectorStyle = ""
@@ -53,5 +67,16 @@ function sendDialogController(message, $scope, $uibModalInstance) {
     $scope.setDestionationType = function (destinationType) {
         $scope.message.destinationType = destinationType
         $scope.showDestionationSelector()
+    }
+    $scope.contains = function (list, entry) {
+        for (var i = 0; i < list.length; i++) {
+            if (entry.body == list[i].body) {
+                return true
+            }        
+        }
+        return false
+    }
+    $scope.selectFromHistory = function(entry) {
+        $scope.message = jQuery.extend(true, {}, entry)
     }
 }

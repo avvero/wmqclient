@@ -49,6 +49,7 @@ function flowController($scope, $stompclient, $timeout, $stateParams, localStora
         var modalInstance = $uibModal.open({
             templateUrl: 'views/send.html',
             controller: sendDialogController,
+            size: 'lg',
             resolve: {
                 message: function ($q, $http) {
                     var deferred = $q.defer();

@@ -1,6 +1,6 @@
 function markersController($scope, page, config, $stateParams, $stompclient, Notification, $window, 
-    localStorageService) {
-    page.setTitle('WMQ client')
+    localStorageService, constants) {
+    page.setTitle('WMQ client v' + constants.version)
 
     $scope.config = config
     $scope.stompclient = $stompclient

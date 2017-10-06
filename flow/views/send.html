@@ -1,46 +1,63 @@
-<div class="modal-content">
-    <div class="modal-header">
-        <h4 class="modal-title">Sending</h4>
-    </div>
-    <form name="sendForm">
-        <div class="input-group {{sendForm.destination.$invalid ? 'has-error' : ''}}">
-            <div class="input-group-btn">
-                <button type="button" ng-click="showDestionationSelector()"
-                    class="btn btn-default dropdown-toggle">{{message.destinationType}} <span class="caret"></span></button>
-                <ul class="dropdown-menu" ng-style="{display: selectorStyle}">
-                    <li><a href="" ng-click="setDestionationType('/topic')">/topic</a></li>
-                    <li><a href="" ng-click="setDestionationType('/queue')">/queue</a></li>
-                </ul>
-                </div><!-- /btn-group -->
-            <input type="text" name="destination" class="form-control" placeholder="name" required ng-model="message.destination">
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label>Headers</label>
-                <div class="input-group {{sendForm.headerKey.$invalid || sendForm.headerValue.$invalid ? 'has-error' : ''}}" ng-repeat="header in headerList">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="headerKey" required ng-model="header.key">
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="headerValue" required ng-model="header.value">
-                        </div>
+<div class="modal-content send-form">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="modal-header">
+                <h4 class="modal-title">Sending</h4>
+            </div>
+            <form name="sendForm">
+                <div class="input-group {{sendForm.destination.$invalid ? 'has-error' : ''}}">
+                    <div class="input-group-btn">
+                        <button type="button" ng-click="showDestionationSelector()"
+                            class="btn btn-default dropdown-toggle">{{message.destinationType}} <span class="caret"></span></button>
+                        <ul class="dropdown-menu" ng-style="{display: selectorStyle}">
+                            <li><a href="" ng-click="setDestionationType('/topic')">/topic</a></li>
+                            <li><a href="" ng-click="setDestionationType('/queue')">/queue</a></li>
+                        </ul>
+                        </div><!-- /btn-group -->
+                    <input type="text" name="destination" class="form-control" placeholder="name" required ng-model="message.destination">
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Headers</label>
+                        <div class="input-group {{sendForm.headerKey.$invalid || sendForm.headerValue.$invalid ? 'has-error' : ''}}" ng-repeat="header in message.headerList">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="headerKey" required ng-model="header.key">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="headerValue" required ng-model="header.value">
+                                </div>
+                            </div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="message.headerList.splice($index, 1)"><i class="fa fa-remove"></i></button>
+                            </span>
+                        </div>  
+                        <div class="input-group">
+                            <button class="btn btn-default" type="button" ng-click="message.headerList.push({})"><i class="fa fa-plus"></i></button>   
+                        </div>          
                     </div>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-click="headerList.splice($index, 1)"><i class="fa fa-remove"></i></button>
-                    </span>
-                </div>  
-                <div class="input-group">
-                    <button class="btn btn-default" type="button" ng-click="headerList.push({})"><i class="fa fa-plus"></i></button>   
-                </div>          
+                    <div class="form-group {{sendForm.body.$invalid ? 'has-error' : ''}}">
+                        <label>Body</label>
+                        <textarea class="form-control" rows="3" ng-model="message.body" name="body" required jsonvalid type=""/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4 history">
+            <div class="modal-header">
+                <h4 class="modal-title">History (10 last)</h4>
             </div>
-            <div class="form-group {{sendForm.body.$invalid ? 'has-error' : ''}}">
-                <label>Body</label>
-                <textarea class="form-control" rows="3" ng-model="message.body" name="body" required jsonvalid type=""/>
+            <div class="list-group">
+                <!--a href="javascript:;" class="list-group-item active" ng-click="selectCurrentFromHistory()">
+                    <pre>{{currentMessage.body || message.body}}</pre>
+                </a-->
+                <a href="javascript:;" class="list-group-item" ng-click="selectFromHistory(entry)"ng-repeat="entry in history">
+                    <pre>{{entry.body}}</pre>
+                </a>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="sendForm.$invalid">Send</button>
-        </div>
-    </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="sendForm.$invalid">Send</button>
+    </div>
 </div>

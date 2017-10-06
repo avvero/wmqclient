@@ -10,7 +10,7 @@ angular.module("flow", [
     'angular-click-outside'
 ])
 angular.module("flow").constant('constants', {
-    version: "1.0.2"
+    version: "1.0"
 })
 // configure our routes
 angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRouterProvider, constants, localStorageServiceProvider) {
@@ -39,7 +39,7 @@ angular.module("flow").config(function ($routeProvider, $stateProvider, $urlRout
             }
         })
     localStorageServiceProvider
-        .setPrefix('com.avvero.flow.' + constants.version)
+        .setPrefix('com.avvero.wmqclient.' + constants.version)
         .setStorageType('localStorage')
 })
 angular.module("flow").run(function ($rootScope) {
