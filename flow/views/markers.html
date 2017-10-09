@@ -36,7 +36,7 @@
             <h1>WMQ client <small>web client for activemq</small></h1>
         </div>
         <div>
-            <p class="lead">Set endpoint to subscribe</p>
+            <p class="lead">Set topic name to subscribe</p>
             <div class="input-group">
                 <span class="input-group-btn" ng-if="endpointsHistory.length > 0" click-outside="showEndpointsHistory = false">
                     <button class="btn btn-default" title="History" ng-click="showEndpointsHistory = !showEndpointsHistory">
@@ -47,7 +47,7 @@
                     </ul>
                 </span>
                 <input type="text" class="form-control list-group-item" ng-model="newEndpoint"
-                        placeholder="Endpoint name">
+                        placeholder="Topic name">
                 <span class="input-group-btn">
                     <button class="btn btn-info btn-flat" ng-click="subscribe(newEndpoint)" ng-disabled="!newEndpoint">
                         <i class="fa fa-open">Subscribe</i>
