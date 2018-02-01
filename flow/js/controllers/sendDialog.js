@@ -10,7 +10,7 @@ function sendDialogController(message, $scope, $uibModalInstance, localStorageSe
         localStorageService.set("sendHistory", $scope.history)
     }
     $scope.clearHeaders = function (headers) {
-        var copy = jQuery.extend(true, {}, headers || {})
+        var copy = jQuery.extend(true, {}, headers || {'amq-msg-type': 'true'})
         delete copy['content-length'];
         delete copy['destination'];
         delete copy['expires'];
